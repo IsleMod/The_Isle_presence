@@ -1,7 +1,16 @@
 name: Build & Release
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+
+
+tag_name: ${{ inputs.version }}
+
+
 
 jobs:
   build:
