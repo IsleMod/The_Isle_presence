@@ -10,6 +10,7 @@ Automatically displays your current dinosaur, server, growth stage, and time of 
 ## Preview
 
 ![Discord presence card](images/preview_card.png)
+![Discord presence card 2](images/preview_card2.png)
 
 ---
 
