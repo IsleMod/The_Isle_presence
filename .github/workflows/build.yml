@@ -27,16 +27,6 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      # ── Inject Discord App ID ────────────────────────────────────────────────
-      # Stored as a GitHub Secret so it's never in the repo in plaintext.
-      # Go to: Settings → Secrets and variables → Actions → New repository secret
-      # Name: DISCORD_APP_ID   Value: your Discord application ID
-      - name: Inject Discord App ID into config.py
-        shell: pwsh
-        run: |
-          (Get-Content config.py) `
-            -replace 'YOUR_APP_ID_HERE', '${{ secrets.DISCORD_APP_ID }}' `
-            | Set-Content config.py
 
       # ── Build standalone exe (onefile) ───────────────────────────────────────
       - name: Build standalone exe
