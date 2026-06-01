@@ -1,8 +1,7 @@
 # 🦕 The Isle Presence
 
-> Discord Rich Presence companion for **The Isle — EVRIMA**
+### Discord Rich Presence companion for **The Isle — EVRIMA**
 
-![Banner](images/banner.png)
 
 Automatically displays your current dinosaur, server, growth stage, and time of day in your Discord profile — with no memory reading, no anti-cheat risk, and no game file modifications.
 
