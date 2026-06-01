@@ -2,7 +2,6 @@
 
 ### Discord Rich Presence companion for **The Isle — EVRIMA**
 
-
 Automatically displays your current dinosaur, server, growth stage, and time of day in your Discord profile — with no memory reading, no anti-cheat risk, and no game file modifications.
 
 ---
@@ -10,7 +9,7 @@ Automatically displays your current dinosaur, server, growth stage, and time of 
 ## Preview
 
 ![Discord presence card](images/preview_card.png)
-![Discord presence card 2](images/preview_card2.png)
+![Discord presence card2](images/preview_card2.png)
 
 ---
 
@@ -45,10 +44,16 @@ That's it. No manual configuration required.
 
 > ⚠️ **Do not install inside The Isle's game folder.** EasyAntiCheat monitors processes launched from the game directory. Install anywhere else — the default (`C:\The_Isle_presence`) is fine.
 
-![Installer screenshot — welcome page](images/installer_welcome.png)
-![Installer screenshot — Engine.ini patch page](images/installer_patch.png)
-![Installer screenshot — install type selection](images/installer_type.png)
-![Installer screenshot — Steam configuration page](images/installer_steam.png)
+<table>
+  <tr>
+    <td align="center"><img src="images/installer_welcome.png" width="280"/><br/><sub>Welcome</sub></td>
+    <td align="center"><img src="images/installer_patch.png" width="280"/><br/><sub>Engine.ini Patch</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/installer_type.png" width="280"/><br/><sub>Install Type</sub></td>
+    <td align="center"><img src="images/installer_steam.png" width="280"/><br/><sub>Steam Configuration</sub></td>
+  </tr>
+</table>
 
 ---
 
