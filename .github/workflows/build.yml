@@ -75,10 +75,10 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          name: The Isle Presence ${{ github.ref_name }}
+          name: The Isle Presence ${{ inputs.version }}
           tag_name: ${{ inputs.version }}
           body: |
-            ## The Isle Presence ${{ github.ref_name }}
+            ## The Isle Presence ${{ inputs.version }}
 
             ### Installation
             Download and run `The_Isle_presence_installer.exe` — it will guide you through everything.
