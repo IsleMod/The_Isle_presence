@@ -1,0 +1,95 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"   # triggers on version tags e.g. v1.0.0
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # ── Checkout ────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Python setup ────────────────────────────────────────────────────────
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── Dependencies ─────────────────────────────────────────────────────────
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      # ── Inject Discord App ID ────────────────────────────────────────────────
+      # Stored as a GitHub Secret so it's never in the repo in plaintext.
+      # Go to: Settings → Secrets and variables → Actions → New repository secret
+      # Name: DISCORD_APP_ID   Value: your Discord application ID
+      - name: Inject Discord App ID into config.py
+        shell: pwsh
+        run: |
+          (Get-Content config.py) `
+            -replace 'YOUR_APP_ID_HERE', '${{ secrets.DISCORD_APP_ID }}' `
+            | Set-Content config.py
+
+      # ── Build standalone exe (onefile) ───────────────────────────────────────
+      - name: Build standalone exe
+        run: >
+          pyinstaller
+          --onefile
+          --noconsole
+          --icon=assets/dino_foot_icon.ico
+          --name The_Isle_presence
+          --add-data "config.py;."
+          The_Isle_presence.py
+
+      # ── Build Steam auto-launch exe (onedir) ─────────────────────────────────
+      - name: Build Steam auto-launch exe
+        run: >
+          pyinstaller
+          --onedir
+          --noconsole
+          --icon=assets/dino_foot_icon.ico
+          --name The_Isle_presence
+          --add-data "config.py;."
+          --distpath dist_onedir
+          The_Isle_presence.py
+
+      # ── Build installer (bundles both builds) ─────────────────────────────────
+      - name: Build installer
+        run: >
+          pyinstaller
+          --onefile
+          --noconsole
+          --icon=assets/dino_foot_purple_installer.ico
+          --name The_Isle_presence_installer
+          --add-data "dist/The_Isle_presence.exe;."
+          --add-data "dist_onedir/The_Isle_presence;The_Isle_presence"
+          installer.py
+
+      # ── Create GitHub Release ────────────────────────────────────────────────
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: The Isle Presence ${{ github.ref_name }}
+          body: |
+            ## The Isle Presence ${{ github.ref_name }}
+
+            ### Installation
+            Download and run `The_Isle_presence_installer.exe` — it will guide you through everything.
+
+            ### What's included
+            The installer contains both the standalone and Steam auto-launch versions.
+            You choose which one to install during setup.
+
+            ### Changelog
+            <!-- Add changelog here before tagging -->
+          files: |
+            dist/The_Isle_presence_installer.exe
+          token: ${{ secrets.GITHUB_TOKEN }}
